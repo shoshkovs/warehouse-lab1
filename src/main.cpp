@@ -1,9 +1,11 @@
+#include "Console.h"
 #include "Price.h"
 #include "ProductFactory.h"
 #include "Warehouse.h"
 
 #include <exception>
 #include <iostream>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -115,8 +117,21 @@ void scenario5() {
     std::cout << "  Second warehouse: " << milk->getInfo() << '\n';
 }
 
-int main() {
+int main(int argc, char* argv[]) {
+    if (argc > 2 || (argc == 2 && std::string(argv[1]) != "--demo" &&
+                     std::string(argv[1]) != "--help")) {
+        std::cerr << "Usage: warehouse_demo [--demo|--help]\n";
+        return 2;
+    }
+    if (argc == 2 && std::string(argv[1]) == "--help") {
+        std::cout << "Default: interactive warehouse menu.\n"
+                     "--demo: run five demonstration scenarios.\n";
+        return 0;
+    }
     try {
+        if (argc == 1) {
+            return runConsole();
+        }
         scenario1();
         scenario2();
         scenario3();

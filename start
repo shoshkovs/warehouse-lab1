@@ -2,21 +2,22 @@
 set -eu
 
 if [ "$#" -gt 1 ]; then
-    printf 'Usage: %s [test|--help]\n' "$0" >&2
+    printf 'Usage: %s [test|demo|--help]\n' "$0" >&2
     exit 2
 fi
 
 mode=${1:-all}
 case "$mode" in
-    all|test) ;;
+    all|test|demo) ;;
     -h|--help)
-        printf 'Usage: %s [test]\n' "$0"
-        printf 'Default: build, run tests, then run the demonstration.\n'
+        printf 'Usage: %s [test|demo]\n' "$0"
+        printf 'Default: build, run tests, then open the interactive menu.\n'
         printf 'test: build and run tests only.\n'
+        printf 'demo: build, run tests, then run the five scenarios.\n'
         exit 0
         ;;
     *)
-        printf 'Usage: %s [test|--help]\n' "$0" >&2
+        printf 'Usage: %s [test|demo|--help]\n' "$0" >&2
         exit 2
         ;;
 esac
@@ -33,7 +34,12 @@ cmake --build "$build_dir" --parallel
 printf '\n[3/3] Running tests...\n'
 ctest --test-dir "$build_dir" --output-on-failure
 
-if [ "$mode" = all ]; then
+if [ "$mode" = demo ]; then
     printf '\nStarting demonstration...\n'
+    exec "$build_dir/warehouse_demo" --demo
+fi
+
+if [ "$mode" = all ]; then
+    printf '\nStarting interactive menu...\n'
     exec "$build_dir/warehouse_demo"
 fi

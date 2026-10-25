@@ -61,12 +61,12 @@ enable_project_sanitizers(warehouse_tests)
 
 add_test(NAME warehouse_tests COMMAND warehouse_tests)
 
-add_executable(warehouse_demo src/main.cpp)
+add_executable(warehouse_demo src/main.cpp src/Console.cpp)
 target_link_libraries(warehouse_demo PRIVATE warehouse_core)
 enable_project_warnings(warehouse_demo)
 enable_project_sanitizers(warehouse_demo)
 
-add_test(NAME warehouse_demo_smoke COMMAND warehouse_demo)
+add_test(NAME warehouse_demo_smoke COMMAND warehouse_demo --demo)
 set_tests_properties(
     warehouse_demo_smoke
     PROPERTIES PASS_REGULAR_EXPRESSION
@@ -78,4 +78,11 @@ add_test(
     COMMAND ${CMAKE_COMMAND}
         -DTEST_EXECUTABLE=$<TARGET_FILE:warehouse_tests>
         -P ${CMAKE_CURRENT_SOURCE_DIR}/tests/check_logging.cmake
+)
+
+add_test(
+    NAME warehouse_console
+    COMMAND ${CMAKE_COMMAND}
+        -DAPP=$<TARGET_FILE:warehouse_demo>
+        -P ${CMAKE_CURRENT_SOURCE_DIR}/tests/check_console.cmake
 )
