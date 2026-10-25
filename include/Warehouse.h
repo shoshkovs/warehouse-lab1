@@ -12,7 +12,7 @@
 
 class Warehouse {
 public:
-    explicit Warehouse(std::size_t maxSize);
+    explicit Warehouse(int maxSize);
     Warehouse(const Warehouse& other);
     Warehouse& operator=(const Warehouse& other);
     Warehouse(Warehouse&& other) noexcept;

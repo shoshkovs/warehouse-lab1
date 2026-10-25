@@ -273,3 +273,7 @@ if(NOT "${result}" STREQUAL "2" OR NOT output MATCHES "Usage:")
     message(FATAL_ERROR "Invalid command-line argument was not rejected")
 endif()
 message(STATUS "PASS: invalid argument")
+
+check_console(copy_cancel "2\n1\n8\n0\n7\n1\n0\n" "Copy cancelled." "Products: 0 / 1")
+check_console(copy_confirm "2\n1\n7\n2\n6\n2\nOld bread\n2\n1\n0.5\n7\n2\n1\n1\nPhone\n100\n2\n0.2\n8\n1\n7\n5\n1\n1\n150\n1\n7\n1\n0\n" "Warehouse copied." "price=150 | quantity=2" "price=100 | quantity=2" "Products: 1 / 2")
+check_console(copy_eof "2\n1\n8\n" "Goodbye.")

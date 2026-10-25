@@ -223,6 +223,16 @@ void testWarehouseAddsSearchesAndRemovesProducts() {
 }
 
 void testWarehouseValidatesCapacityAndNullProducts() {
+    for (int capacity : {-1, -100, (-2147483647 - 1)}) {
+        bool caught = false;
+        try {
+            Warehouse invalid(capacity);
+        } catch (const std::invalid_argument&) {
+            caught = true;
+        }
+        check(caught, "Negative warehouse capacity must be rejected");
+    }
+
     {
         bool caught = false;
         try {
@@ -346,6 +356,7 @@ void testLoggingFormat() {
           "[PRODUCT] set price: Bread\n"
           "[FACTORY] create Bread: Bread\n",
           "Logging preserves the source, operation and result");
+
 
 }
 

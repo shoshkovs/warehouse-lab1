@@ -244,8 +244,8 @@ int runConsole() {
         !readInteger("Warehouse 2 capacity: ", secondCapacity, 1, maxInteger)) {
         return 0;
     }
-    Warehouse first(static_cast<std::size_t>(firstCapacity));
-    Warehouse second(static_cast<std::size_t>(secondCapacity));
+    Warehouse first(firstCapacity);
+    Warehouse second(secondCapacity);
     Warehouse* active = &first;
     bool running = true;
     while (running) {
@@ -255,9 +255,9 @@ int runConsole() {
                   << "\n1. Show products\n2. Add product\n3. Remove product\n"
                      "4. Find product\n5. Edit product\n"
                      "6. Transfer to the other warehouse\n"
-                     "7. Switch warehouse\n0. Exit\n";
+                     "7. Switch warehouse\n8. Copy to the other warehouse\n0. Exit\n";
         int command;
-        if (!readInteger("Command: ", command, 0, 7)) {
+        if (!readInteger("Command: ", command, 0, 8)) {
             break;
         }
         try {
@@ -273,6 +273,22 @@ int runConsole() {
                         *active, active == &first ? second : first);
                     break;
                 case 7: active = active == &first ? &second : &first; break;
+                case 8: {
+                    int confirmation;
+                    if (!readInteger("Replace the other warehouse contents and capacity? (1=yes, 0=no): ",
+                                     confirmation, 0, 1)) {
+                        running = false;
+                        break;
+                    }
+                    if (confirmation == 1) {
+                        Warehouse& target = active == &first ? second : first;
+                        target = *active;
+                        std::cout << "Warehouse copied.\n";
+                    } else {
+                        std::cout << "Copy cancelled.\n";
+                    }
+                    break;
+                }
             }
         } catch (const std::exception& error) {
             std::cout << "Error: " << error.what() << '\n';

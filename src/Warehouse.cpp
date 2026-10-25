@@ -5,11 +5,12 @@
 #include <stdexcept>
 #include <utility>
 
-Warehouse::Warehouse(std::size_t maxSize)
-    : maxSize_(maxSize), currentSize_(0) {
-    if (maxSize == 0) {
+Warehouse::Warehouse(int maxSize)
+    : maxSize_(0), currentSize_(0) {
+    if (maxSize <= 0) {
         throw std::invalid_argument("Warehouse size must be positive");
     }
+    maxSize_ = static_cast<std::size_t>(maxSize);
 }
 
 Warehouse::Warehouse(const Warehouse& other)

@@ -1,13 +1,13 @@
-Test project /tmp/warehouse-console-build
+Test project /tmp/warehouse-clean-final-build
     Start 1: warehouse_tests
-1/4 Test #1: warehouse_tests ..................   Passed    0.04 sec
+1/4 Test #1: warehouse_tests ..................   Passed    0.06 sec
     Start 2: warehouse_demo_smoke
-2/4 Test #2: warehouse_demo_smoke .............   Passed    0.04 sec
+2/4 Test #2: warehouse_demo_smoke .............   Passed    0.06 sec
     Start 3: warehouse_logging
-3/4 Test #3: warehouse_logging ................   Passed    0.06 sec
+3/4 Test #3: warehouse_logging ................   Passed    0.05 sec
     Start 4: warehouse_console
-4/4 Test #4: warehouse_console ................   Passed    0.53 sec
+4/4 Test #4: warehouse_console ................   Passed    0.76 sec
 
 100% tests passed out of 4
 
-Total Test time (real) =   0.66 sec
+Total Test time (real) =   0.94 sec

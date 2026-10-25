@@ -11,3 +11,6 @@
 -- PASS: all_factories
 -- PASS: help
 -- PASS: invalid argument
+-- PASS: copy_cancel
+-- PASS: copy_confirm
+-- PASS: copy_eof
