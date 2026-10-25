@@ -28,6 +28,7 @@ abstract class Product {
   - quantity_: Quantity
   - weight_: Weight
   - category_: string
+  - warehouse_: Warehouse*
   + changeQuantity(delta: int)
   + setPrice(price: Price)
   + clone(): unique_ptr<Product>
@@ -101,7 +102,7 @@ class WarehouseIterator {
 
 class ConstWarehouseIterator
 
-Warehouse *-- "0..*" Product : owns
+Warehouse "0..1" *-- "0..*" Product : владеет
 Warehouse --> WarehouseIterator
 Warehouse --> ConstWarehouseIterator
 Product --> Warehouse : transferTo

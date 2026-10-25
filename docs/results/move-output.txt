@@ -1,0 +1,12 @@
+[FACTORY] create Laptop: Laptop
+[WAREHOUSE] find by id: not found
+[WAREHOUSE] add: Laptop
+[WAREHOUSE] find by id: found
+[WAREHOUSE] move constructor: success
+[WAREHOUSE] find by id: found
+[WAREHOUSE] move assignment: success
+[WAREHOUSE] find by id: found
+move_constructor_same_address=1
+source_size_zero=1
+move_assignment_same_address=1
+moved_size_zero=1

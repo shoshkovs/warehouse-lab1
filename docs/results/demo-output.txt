@@ -1,0 +1,75 @@
+Scenario 1: factories and iterator
+[FACTORY] create Smartphone: Smartphone
+[WAREHOUSE] find by id: not found
+[WAREHOUSE] add: Smartphone
+[FACTORY] create Laptop: Laptop
+[WAREHOUSE] find by id: not found
+[WAREHOUSE] add: Laptop
+[FACTORY] create TShirt: T-Shirt
+[WAREHOUSE] find by id: not found
+[WAREHOUSE] add: T-Shirt
+[FACTORY] create Jacket: Jacket
+[WAREHOUSE] find by id: not found
+[WAREHOUSE] add: Jacket
+[FACTORY] create Milk: Milk
+[WAREHOUSE] find by id: not found
+[WAREHOUSE] add: Milk
+[FACTORY] create Bread: Bread
+[WAREHOUSE] find by id: not found
+[WAREHOUSE] add: Bread
+  Smartphone | id=1 | name=Smartphone | price=800 | quantity=5 | weight=0.2
+  Laptop | id=2 | name=Laptop | price=1500 | quantity=3 | weight=1.7
+  TShirt | id=3 | name=T-Shirt | price=40 | quantity=10 | weight=0.3
+  Jacket | id=4 | name=Jacket | price=120 | quantity=6 | weight=0.9
+  Milk | id=5 | name=Milk | price=3 | quantity=20 | weight=1
+  Bread | id=6 | name=Bread | price=2 | quantity=15 | weight=0.5
+Scenario 2: deep copy
+[FACTORY] create Smartphone: Phone
+[WAREHOUSE] find by id: not found
+[WAREHOUSE] add: Phone
+[WAREHOUSE] copy constructor: success
+[WAREHOUSE] find by id: found
+[PRODUCT] change quantity: Phone
+[WAREHOUSE] find by id: found
+[PRODUCT] set price: Phone
+  Original: [WAREHOUSE] find by id: found
+Smartphone | id=10 | name=Phone | price=700 | quantity=4 | weight=0.2
+  Copy:     [WAREHOUSE] find by id: found
+Smartphone | id=10 | name=Phone | price=750 | quantity=7 | weight=0.2
+Scenario 3: move constructor
+[FACTORY] create Laptop: Laptop
+[WAREHOUSE] find by id: not found
+[WAREHOUSE] add: Laptop
+[WAREHOUSE] move constructor: success
+  Source size: 0
+  Moved size: 1
+Scenario 4: search and removal
+[FACTORY] create Smartphone: Phone
+[WAREHOUSE] find by id: not found
+[WAREHOUSE] add: Phone
+[FACTORY] create Laptop: Laptop
+[WAREHOUSE] find by id: not found
+[WAREHOUSE] add: Laptop
+[FACTORY] create Bread: Bread
+[WAREHOUSE] find by id: not found
+[WAREHOUSE] add: Bread
+[WAREHOUSE] find by id: found
+[WAREHOUSE] find by category: 2
+[WAREHOUSE] find by price: 1
+  Found by ID: Laptop
+  Electronics: 2
+  Products with price 2: 1
+[WAREHOUSE] remove by id: 31
+[WAREHOUSE] remove by index: 0
+  Size after removal: 1
+Scenario 5: product transfer
+[FACTORY] create Milk: Milk
+[WAREHOUSE] find by id: not found
+[WAREHOUSE] add: Milk
+[WAREHOUSE] find by id: found
+[WAREHOUSE] find by id: not found
+[PRODUCT] transfer: Milk
+[PRODUCT] change quantity: Milk
+[PRODUCT] set price: Milk
+  First warehouse size: 0
+  Second warehouse: Milk | id=40 | name=Milk | price=4 | quantity=8 | weight=1

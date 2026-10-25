@@ -1,0 +1,11 @@
+Test project /tmp/warehouse-clean-final-build
+    Start 1: warehouse_tests
+1/3 Test #1: warehouse_tests ..................   Passed    0.04 sec
+    Start 2: warehouse_demo_smoke
+2/3 Test #2: warehouse_demo_smoke .............   Passed    0.05 sec
+    Start 3: warehouse_logging
+3/3 Test #3: warehouse_logging ................   Passed    0.05 sec
+
+100% tests passed out of 3
+
+Total Test time (real) =   0.14 sec

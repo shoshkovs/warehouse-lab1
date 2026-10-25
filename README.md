@@ -1,19 +1,27 @@
-# Warehouse Lab 1
+# Лабораторная работа № 1: система управления складом
 
-A C++17 object-oriented warehouse project.
+Учебный проект на C++17: классы, наследование, фабричный метод, итераторы, глубокое копирование и перемещение объектов.
 
-## Features
+## Отчёт
 
-- Three product categories and six concrete product classes.
-- Validated `Price`, `Quantity`, and `Weight` value classes.
-- Product factories and polymorphic cloning.
-- Warehouse capacity limits, search, removal, and product transfer.
-- Deep copying, move operations, and mutable/const iterators.
-- Five demonstration scenarios and automated tests.
+[Отчёт по лабораторной работе](docs/report.md) содержит UML-диаграмму, описание паттернов «Фабричный метод» и «Итератор», объяснение правила пяти, фактические результаты пяти сценариев, тестирование и выводы.
 
-## Build and run
+[Исходник UML в формате PlantUML](docs/warehouse.puml). Сохранённый вывод программы и проверок находится в `docs/results/`.
 
-Requires CMake 3.16 or newer and a C++17 compiler.
+## Возможности
+
+- Три категории и шесть конкретных классов товаров.
+- Классы-атрибуты `Price`, `Quantity`, `Weight`.
+- Создание товаров через фабрики и полиморфное клонирование.
+- Ограничение вместимости, поиск, удаление и перенос товаров между складами.
+- Глубокое копирование, операции перемещения, изменяемый и константный итераторы.
+- Пять демонстрационных сценариев и автоматические проверки.
+
+Известные ограничения текущей реализации описаны в отчёте.
+
+## Сборка и запуск
+
+Требуются CMake 3.16 или новее и компилятор с поддержкой C++17.
 
 ```sh
 cmake -S . -B build
@@ -22,7 +30,9 @@ ctest --test-dir build --output-on-failure
 ./build/warehouse_demo
 ```
 
-## Sanitizers
+## Проверка с санитайзерами
+
+Для Clang/GCC:
 
 ```sh
 cmake -S . -B build-sanitize -DENABLE_SANITIZERS=ON
@@ -30,9 +40,11 @@ cmake --build build-sanitize
 ctest --test-dir build-sanitize --output-on-failure
 ```
 
-## Structure
+## Структура
 
-- `include/`: class declarations.
-- `src/`: implementations and demonstration entry point.
-- `tests/`: class tests and logging checks.
-- `docs/warehouse.puml`: UML source.
+- `include/` — объявления классов.
+- `src/` — реализации и точка входа демонстрации.
+- `tests/` — проверки классов и логирования.
+- `docs/report.md` — отчёт на русском языке.
+- `docs/warehouse.puml` — исходник UML.
+- `docs/results/` — результаты запуска и дополнительная проверка перемещения.

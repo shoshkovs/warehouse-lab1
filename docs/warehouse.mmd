@@ -1,0 +1,126 @@
+classDiagram
+    direction TB
+
+    class Product {
+        <<abstract>>
+        -id_
+        -name_
+        -category_
+        -warehouse_
+        +clone()
+        +getInfo()
+        +transferTo()
+        +changeQuantity()
+        +setPrice()
+    }
+    class Price {
+        -value_ : int
+        +getValue()
+        +setValue()
+    }
+    class Quantity {
+        -value_ : int
+        +getValue()
+        +setValue()
+        +change()
+    }
+    class Weight {
+        -value_ : double
+        +getValue()
+        +setValue()
+    }
+    class Electronics {
+        <<abstract>>
+    }
+    class Clothing {
+        <<abstract>>
+    }
+    class Food {
+        <<abstract>>
+    }
+    class Smartphone
+    class Laptop
+    class TShirt
+    class Jacket
+    class Milk
+    class Bread
+
+    Product <|-- Electronics
+    Product <|-- Clothing
+    Product <|-- Food
+    Electronics <|-- Smartphone
+    Electronics <|-- Laptop
+    Clothing <|-- TShirt
+    Clothing <|-- Jacket
+    Food <|-- Milk
+    Food <|-- Bread
+    Product *-- Price : содержит
+    Product *-- Quantity : содержит
+    Product *-- Weight : содержит
+
+    class ProductFactory {
+        <<abstract>>
+        +createProduct()
+    }
+    class SmartphoneFactory
+    class LaptopFactory
+    class TShirtFactory
+    class JacketFactory
+    class MilkFactory
+    class BreadFactory
+
+    ProductFactory <|-- SmartphoneFactory
+    ProductFactory <|-- LaptopFactory
+    ProductFactory <|-- TShirtFactory
+    ProductFactory <|-- JacketFactory
+    ProductFactory <|-- MilkFactory
+    ProductFactory <|-- BreadFactory
+    SmartphoneFactory ..> Smartphone : создаёт
+    LaptopFactory ..> Laptop : создаёт
+    TShirtFactory ..> TShirt : создаёт
+    JacketFactory ..> Jacket : создаёт
+    MilkFactory ..> Milk : создаёт
+    BreadFactory ..> Bread : создаёт
+
+    class Warehouse {
+        -products_
+        -maxSize_
+        -currentSize_
+        +addProduct()
+        +removeById()
+        +removeByIndex()
+        +findById()
+        +findByCategory()
+        +findByPrice()
+        +begin()
+        +end()
+    }
+    class WarehouseIterator {
+        -current_
+        -end_
+        +operator*()
+        +operator++()
+        +operator==()
+        +operator!=()
+    }
+    class ConstWarehouseIterator {
+        -current_
+        -end_
+        +operator*()
+        +operator++()
+        +operator==()
+        +operator!=()
+    }
+    class LoggingProxy {
+        +log()
+    }
+
+    Warehouse "0..1" *-- "0..*" Product : владеет
+    Product --> "0..1" Warehouse : невладеющий адрес
+    Warehouse ..> WarehouseIterator : создаёт
+    Warehouse ..> ConstWarehouseIterator : создаёт
+    WarehouseIterator ..> Product : изменяемый доступ
+    ConstWarehouseIterator ..> Product : чтение
+    Warehouse ..> LoggingProxy : журнал операций
+    Product ..> LoggingProxy : журнал операций
+    ProductFactory ..> LoggingProxy : конкретные фабрики
