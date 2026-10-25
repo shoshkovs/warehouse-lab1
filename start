@@ -1,0 +1,39 @@
+#!/bin/sh
+set -eu
+
+if [ "$#" -gt 1 ]; then
+    printf 'Usage: %s [test|--help]\n' "$0" >&2
+    exit 2
+fi
+
+mode=${1:-all}
+case "$mode" in
+    all|test) ;;
+    -h|--help)
+        printf 'Usage: %s [test]\n' "$0"
+        printf 'Default: build, run tests, then run the demonstration.\n'
+        printf 'test: build and run tests only.\n'
+        exit 0
+        ;;
+    *)
+        printf 'Usage: %s [test|--help]\n' "$0" >&2
+        exit 2
+        ;;
+esac
+
+project_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+build_dir="$project_dir/build"
+
+printf '\n[1/3] Configuring Debug build...\n'
+cmake -S "$project_dir" -B "$build_dir" -DCMAKE_BUILD_TYPE=Debug
+
+printf '\n[2/3] Building...\n'
+cmake --build "$build_dir" --parallel
+
+printf '\n[3/3] Running tests...\n'
+ctest --test-dir "$build_dir" --output-on-failure
+
+if [ "$mode" = all ]; then
+    printf '\nStarting demonstration...\n'
+    exec "$build_dir/warehouse_demo"
+fi
