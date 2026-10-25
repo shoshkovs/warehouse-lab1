@@ -1,0 +1,116 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Price {
+  - value_: int
+  + getValue(): int
+  + setValue(value: int)
+}
+
+class Quantity {
+  - value_: int
+  + getValue(): int
+  + setValue(value: int)
+  + change(delta: int)
+}
+
+class Weight {
+  - value_: double
+  + getValue(): double
+  + setValue(value: double)
+}
+
+abstract class Product {
+  {static} - nextId_: int
+  - id_: int
+  - name_: string
+  - price_: Price
+  - quantity_: Quantity
+  - weight_: Weight
+  - category_: string
+  + changeQuantity(delta: int)
+  + setPrice(price: Price)
+  + clone(): unique_ptr<Product>
+  + getInfo(): string
+  + transferTo(other: Warehouse)
+}
+
+abstract class Electronics
+abstract class Clothing
+abstract class Food
+class Smartphone
+class Laptop
+class TShirt
+class Jacket
+class Milk
+class Bread
+
+Product <|-- Electronics
+Product <|-- Clothing
+Product <|-- Food
+Electronics <|-- Smartphone
+Electronics <|-- Laptop
+Clothing <|-- TShirt
+Clothing <|-- Jacket
+Food <|-- Milk
+Food <|-- Bread
+
+Product *-- Price
+Product *-- Quantity
+Product *-- Weight
+
+abstract class ProductFactory {
+  + createProduct(id, name, price, quantity, weight): unique_ptr<Product>
+}
+class SmartphoneFactory
+class LaptopFactory
+class TShirtFactory
+class JacketFactory
+class MilkFactory
+class BreadFactory
+
+ProductFactory <|-- SmartphoneFactory
+ProductFactory <|-- LaptopFactory
+ProductFactory <|-- TShirtFactory
+ProductFactory <|-- JacketFactory
+ProductFactory <|-- MilkFactory
+ProductFactory <|-- BreadFactory
+
+class Warehouse {
+  - products_: vector<unique_ptr<Product>>
+  - maxSize_: size_t
+  - currentSize_: size_t
+  + addProduct(product)
+  + removeById(id): bool
+  + removeByIndex(index): bool
+  + findById(id): Product*
+  + findByCategory(category): vector<Product*>
+  + findByPrice(price): vector<Product*>
+  + begin(): WarehouseIterator
+  + end(): WarehouseIterator
+}
+
+class WarehouseIterator {
+  - current_: iterator
+  - end_: iterator
+  + operator++(): WarehouseIterator&
+  + operator*(): Product&
+  + operator==(other): bool
+  + operator!=(other): bool
+}
+
+class ConstWarehouseIterator
+
+Warehouse *-- "0..*" Product : owns
+Warehouse --> WarehouseIterator
+Warehouse --> ConstWarehouseIterator
+Product --> Warehouse : transferTo
+
+class LoggingProxy {
+  {static} + log(source, operation, result)
+}
+
+Warehouse ..> LoggingProxy : WAREHOUSE
+Product ..> LoggingProxy : PRODUCT
+ProductFactory ..> LoggingProxy : FACTORY
+@enduml
