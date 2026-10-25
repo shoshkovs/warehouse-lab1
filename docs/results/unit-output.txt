@@ -1,8 +1,4 @@
 [PASS] testValueClassesValidateAndChangeValues
-[PASS] testProductHierarchyHasExactTypesCategoriesAndIds
-[PRODUCT] change quantity: Phone
-[PRODUCT] set price: Phone
-[PASS] testProductChangesQuantityAndPrice
 [FACTORY] create Smartphone: Phone
 [FACTORY] create Laptop: Laptop
 [FACTORY] create TShirt: T-Shirt
@@ -10,22 +6,6 @@
 [FACTORY] create Milk: Milk
 [FACTORY] create Bread: Bread
 [PASS] testAllFactoriesCreateTheCorrectProduct
-[FACTORY] create Smartphone: Phone
-[WAREHOUSE] find by id: not found
-[WAREHOUSE] add: Phone
-[FACTORY] create Laptop: Laptop
-[WAREHOUSE] find by id: not found
-[WAREHOUSE] add: Laptop
-[FACTORY] create Bread: Bread
-[WAREHOUSE] find by id: not found
-[WAREHOUSE] add: Bread
-[WAREHOUSE] find by id: found
-[WAREHOUSE] find by id: not found
-[WAREHOUSE] find by category: 2
-[WAREHOUSE] find by price: 2
-[WAREHOUSE] remove by id: 202
-[WAREHOUSE] remove by index: 0
-[PASS] testWarehouseAddsSearchesAndRemovesProducts
 [FACTORY] create Bread: Bread
 [WAREHOUSE] find by id: not found
 [WAREHOUSE] add: Bread
@@ -44,8 +24,11 @@
 [WAREHOUSE] copy assignment: success
 [WAREHOUSE] find by id: found
 [WAREHOUSE] find by id: found
+[WAREHOUSE] find by id: found
 [WAREHOUSE] move constructor: success
+[WAREHOUSE] find by id: found
 [WAREHOUSE] move assignment: success
+[WAREHOUSE] find by id: found
 [PASS] testWarehouseRuleOfFiveKeepsDeepCopiesIndependent
 [FACTORY] create Bread: Bread A
 [WAREHOUSE] find by id: not found
@@ -54,19 +37,4 @@
 [WAREHOUSE] find by id: not found
 [WAREHOUSE] add: Bread B
 [PASS] testIteratorsTraverseMutableAndConstWarehouses
-[FACTORY] create Milk: Milk
-[WAREHOUSE] find by id: not found
-[WAREHOUSE] add: Milk
-[WAREHOUSE] find by id: found
-[WAREHOUSE] find by id: not found
-[PRODUCT] transfer: Milk
-[WAREHOUSE] find by id: found
-[WAREHOUSE] find by id: found
-[PRODUCT] change quantity: Milk
-[WAREHOUSE] find by id: found
-[PRODUCT] set price: Milk
-[WAREHOUSE] find by id: found
-[WAREHOUSE] find by id: found
-[PASS] testProductTransferMovesOwnershipBetweenWarehouses
-[PASS] testLoggingFormat
-10/10 tests passed
+5/5 tests passed

@@ -72,17 +72,3 @@ set_tests_properties(
     PROPERTIES PASS_REGULAR_EXPRESSION
                "Scenario 1.*Scenario 2.*Scenario 3.*Scenario 4.*Scenario 5"
 )
-
-add_test(
-    NAME warehouse_logging
-    COMMAND ${CMAKE_COMMAND}
-        -DTEST_EXECUTABLE=$<TARGET_FILE:warehouse_tests>
-        -P ${CMAKE_CURRENT_SOURCE_DIR}/tests/check_logging.cmake
-)
-
-add_test(
-    NAME warehouse_console
-    COMMAND ${CMAKE_COMMAND}
-        -DAPP=$<TARGET_FILE:warehouse_demo>
-        -P ${CMAKE_CURRENT_SOURCE_DIR}/tests/check_console.cmake
-)

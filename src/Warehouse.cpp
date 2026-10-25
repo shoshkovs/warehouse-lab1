@@ -16,8 +16,10 @@ Warehouse::Warehouse(int maxSize)
 Warehouse::Warehouse(const Warehouse& other)
     : maxSize_(other.maxSize_), currentSize_(other.currentSize_) {
     for (const std::unique_ptr<Product>& product : other.products_) {
+        // создаем отдельный товар, иначе копия будет менять оригинал
         products_.push_back(product->clone());
     }
+    // у новых товаров теперь другой склад, обновляем ссылки на него
     updateOwners();
     LoggingProxy::log("WAREHOUSE", "copy constructor", "success");
 }
